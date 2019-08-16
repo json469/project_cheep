@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:project_cheep/page.dart';
 import 'package:webfeed/webfeed.dart';
 
 class Home extends StatefulWidget {
@@ -32,6 +33,10 @@ class _HomeState extends State<Home> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 title: Text(feed.items[index].title),
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Page(feed.items[index]))),
               );
             },
           );
