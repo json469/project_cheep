@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:project_cheep/web_view_container.dart';
 import 'package:webfeed/webfeed.dart';
 
@@ -21,7 +22,7 @@ class _PageState extends State<Page> {
         child: Column(
           children: <Widget>[
             Text(item.title),
-            Text(item.description),
+            Html(data: item.description),
             RaisedButton(
               child: Text('Link'),
               onPressed: () => Navigator.push(
