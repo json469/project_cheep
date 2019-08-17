@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:project_cheep/page.dart';
@@ -46,7 +47,7 @@ class _HomeState extends State<Home> {
       itemBuilder: (BuildContext context, int index) {
         final RssItem item = feed.items[index];
         return ListTile(
-          title: Text(item.title),
+          title: AutoSizeText(item.title, maxLines: 2),
           leading:
               item.meta.image != null ? Image.network(item.meta.image) : null,
           onTap: () => Navigator.push(
