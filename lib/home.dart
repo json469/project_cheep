@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:project_cheep/page.dart';
 import 'package:webfeed/webfeed.dart';
+
+import 'package:project_cheep/feed_item.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -41,36 +42,13 @@ class _HomeState extends State<Home> {
 
   ListView _buildFeedListView(RssFeed feed) {
     return ListView.separated(
-      separatorBuilder: (context, index) => Divider(color: Colors.grey),
+      separatorBuilder: (BuildContext context, int index) =>
+          Divider(color: Colors.grey.withOpacity(0.5), height: 1),
       itemCount: feed.items.length,
       itemBuilder: (BuildContext context, int index) {
         final RssItem item = feed.items[index];
-        return ListTile(
-          title: Text(item.title, maxLines: 2, overflow: TextOverflow.ellipsis),
-          leading: _buildThumbnail(context, item.meta.image),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Page(item))),
-        );
+        return FeedItem(item);
       },
-    );
-  }
-
-  ClipRRect _buildThumbnail(BuildContext context, String imageUrl) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4.0),
-      child: Container(
-        constraints: BoxConstraints.tightFor(width: 64.0, height: 64.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(0.75),
-        ),
-        child: imageUrl != null
-            ? Image.network(imageUrl, fit: BoxFit.fitWidth)
-            : Container(
-                child: Icon(
-                Icons.money_off,
-                color: Colors.white,
-              )),
-      ),
     );
   }
 
