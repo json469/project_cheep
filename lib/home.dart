@@ -48,12 +48,33 @@ class _HomeState extends State<Home> {
         final RssItem item = feed.items[index];
         return ListTile(
           title: AutoSizeText(item.title, maxLines: 2),
-          leading:
-              item.meta.image != null ? Image.network(item.meta.image) : null,
+          leading: _buildThumbnail(context, item.meta.image),
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Page(item))),
         );
       },
+    );
+  }
+
+  ClipRRect _buildThumbnail(BuildContext context, String imageUrl) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4.0),
+      child: Container(
+          constraints: BoxConstraints.tightFor(width: 64.0, height: 64.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+          ),
+          child: imageUrl != null
+              ? Image.network(imageUrl, fit: BoxFit.fitWidth)
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.0),
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: Icon(
+                    Icons.money_off,
+                    color: Colors.white,
+                  ))),
     );
   }
 
