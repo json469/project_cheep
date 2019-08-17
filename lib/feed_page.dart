@@ -15,7 +15,10 @@ class _FeedPageState extends State<FeedPage> {
     final RssItem item = this.widget.item;
     return Scaffold(
       appBar: AppBar(
-        title: Text(item.title),
+        title: Text(
+          _tryRetrieveStoreName(item.title),
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -29,5 +32,13 @@ class _FeedPageState extends State<FeedPage> {
         ),
       ),
     );
+  }
+
+  String _tryRetrieveStoreName(String title) {
+    // Given most of the store names are written after the @ symbol...
+    final RegExp _atSymbolRegExp = RegExp('[@]');
+    if (_atSymbolRegExp.hasMatch(title))
+      return title.substring(title.indexOf(_atSymbolRegExp) + 1);
+    return 'Cheep Deal';
   }
 }
