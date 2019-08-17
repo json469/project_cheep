@@ -17,37 +17,48 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Cheep')),
-      body: buildFutureBuilder(),
+      body: _buildFutureBuilder(),
     );
   }
 
-  FutureBuilder<Response> buildFutureBuilder() {
+  FutureBuilder<Response> _buildFutureBuilder() {
     return FutureBuilder<Response>(
       future: fetchFeed(),
       builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          final RssFeed feed = RssFeed.parse(snapshot.data.body);
-          return ListView.separated(
-            separatorBuilder: (context, index) => Divider(color: Colors.grey),
-            itemCount: feed.items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(feed.items[index].title),
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Page(feed.items[index]))),
-              );
-            },
-          );
-        } else {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[Center(child: CircularProgressIndicator())],
-          );
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            return _buildLoadingScreen();
+          case (ConnectionState.active):
+            return _buildLoadingScreen();
+          case (ConnectionState.waiting):
+            return _buildLoadingScreen();
+          default:
+            return _buildFeedListView(RssFeed.parse(snapshot.data.body));
         }
       },
+    );
+  }
+
+  ListView _buildFeedListView(RssFeed feed) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => Divider(color: Colors.grey),
+      itemCount: feed.items.length,
+      itemBuilder: (BuildContext context, int index) {
+        final RssItem item = feed.items[index];
+        return ListTile(
+          title: Text(item.title),
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Page(item))),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingScreen() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[Center(child: CircularProgressIndicator())],
     );
   }
 
