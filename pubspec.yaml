@@ -24,7 +24,10 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   http: ^0.12.0+2
-  webfeed: ^0.4.2
+  webfeed:
+    git:
+      url: https://github.com/json469/webfeed.git
+      ref: develop
   webview_flutter: ^0.3.12+1
   flutter_html: ^0.10.4
 

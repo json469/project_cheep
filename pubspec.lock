@@ -194,9 +194,11 @@ packages:
   webfeed:
     dependency: "direct main"
     description:
-      name: webfeed
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: develop
+      resolved-ref: "8cb248507bf813459b2f1226fb411401a3513b72"
+      url: "https://github.com/json469/webfeed.git"
+    source: git
     version: "0.4.2"
   webview_flutter:
     dependency: "direct main"
@@ -204,7 +206,7 @@ packages:
       name: webview_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.12+1"
+    version: "0.3.13"
   xml:
     dependency: transitive
     description:

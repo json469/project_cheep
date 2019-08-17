@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:project_cheep/web_view_container.dart';
 import 'package:webfeed/webfeed.dart';
 
 class Page extends StatefulWidget {
@@ -22,14 +21,10 @@ class _PageState extends State<Page> {
         child: Column(
           children: <Widget>[
             Text(item.title),
+            Divider(),
             Html(data: item.description),
-            RaisedButton(
-              child: Text('Link'),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WebViewContainer(item.link))),
-            )
+            Divider(),
+            Text(item.meta.link),
           ],
         ),
       ),
