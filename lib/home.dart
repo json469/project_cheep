@@ -61,19 +61,15 @@ class _HomeState extends State<Home> {
       child: Container(
         constraints: BoxConstraints.tightFor(width: 64.0, height: 64.0),
         decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColor.withOpacity(0.75),
         ),
         child: imageUrl != null
             ? Image.network(imageUrl, fit: BoxFit.fitWidth)
             : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.0),
-                  color: Theme.of(context).primaryColor,
-                ),
                 child: Icon(
-                  Icons.money_off,
-                  color: Colors.white,
-                )),
+                Icons.money_off,
+                color: Colors.white,
+              )),
       ),
     );
   }
