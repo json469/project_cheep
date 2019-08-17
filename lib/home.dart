@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:project_cheep/page.dart';
@@ -47,7 +46,7 @@ class _HomeState extends State<Home> {
       itemBuilder: (BuildContext context, int index) {
         final RssItem item = feed.items[index];
         return ListTile(
-          title: AutoSizeText(item.title, maxLines: 2),
+          title: Text(item.title, maxLines: 2, overflow: TextOverflow.ellipsis),
           leading: _buildThumbnail(context, item.meta.image),
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Page(item))),
@@ -60,21 +59,22 @@ class _HomeState extends State<Home> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(4.0),
       child: Container(
-          constraints: BoxConstraints.tightFor(width: 64.0, height: 64.0),
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-          ),
-          child: imageUrl != null
-              ? Image.network(imageUrl, fit: BoxFit.fitWidth)
-              : Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  child: Icon(
-                    Icons.money_off,
-                    color: Colors.white,
-                  ))),
+        constraints: BoxConstraints.tightFor(width: 64.0, height: 64.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+        ),
+        child: imageUrl != null
+            ? Image.network(imageUrl, fit: BoxFit.fitWidth)
+            : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.0),
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Icon(
+                  Icons.money_off,
+                  color: Colors.white,
+                )),
+      ),
     );
   }
 
