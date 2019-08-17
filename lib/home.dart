@@ -47,6 +47,8 @@ class _HomeState extends State<Home> {
         final RssItem item = feed.items[index];
         return ListTile(
           title: Text(item.title),
+          leading:
+              item.meta.image != null ? Image.network(item.meta.image) : null,
           onTap: () => Navigator.push(
               context, MaterialPageRoute(builder: (context) => Page(item))),
         );
