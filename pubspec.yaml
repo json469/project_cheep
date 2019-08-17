@@ -29,7 +29,7 @@ dependencies:
       url: https://github.com/json469/webfeed.git
       ref: develop
   webview_flutter: ^0.3.12+1
-  flutter_html: ^0.10.4
+  html: ^0.14.0+2
 
 dev_dependencies:
   flutter_test:

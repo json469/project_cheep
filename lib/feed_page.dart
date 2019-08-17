@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:html/parser.dart';
+import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:webfeed/webfeed.dart';
 
 class FeedPage extends StatefulWidget {
@@ -12,33 +13,37 @@ class FeedPage extends StatefulWidget {
 class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
-    final RssItem item = this.widget.item;
+    final RssItem _item = this.widget.item;
+    final TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _tryRetrieveStoreName(item.title),
+          FeedHelpers.getTitle(_item.title),
           overflow: TextOverflow.ellipsis,
         ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Text(item.title),
-            Divider(),
-            Html(data: item.description),
-            Divider(),
-            Text(item.meta.link),
+            Container(
+                child: Text(
+              _item.title,
+              style: _textTheme.title,
+            )),
+            Container(
+                constraints: BoxConstraints.tightFor(height: 200.0),
+                child: Image.network(_item.meta.image, fit: BoxFit.fitWidth)),
+            Text(
+              FeedHelpers.getDescription(parse(_item.description).outerHtml),
+              textAlign: TextAlign.left,
+              style: _textTheme.body1,
+            ),
+            Text(_item.meta.link),
           ],
         ),
       ),
     );
-  }
-
-  String _tryRetrieveStoreName(String title) {
-    // Given most of the store names are written after the @ symbol...
-    final RegExp _atSymbolRegExp = RegExp('[@]');
-    if (_atSymbolRegExp.hasMatch(title))
-      return title.substring(title.indexOf(_atSymbolRegExp) + 1);
-    return 'Cheep Deal';
   }
 }
