@@ -62,11 +62,13 @@ class _FeedPageState extends State<FeedPage> {
   }
 
   Widget _buildImage(RssItem _item) {
-    return Container(
-      color: Colors.grey.withOpacity(0.5),
-      alignment: Alignment.center,
-      child: Image.network(_item.meta.image, fit: BoxFit.fitWidth),
-    );
+    if (_item.meta.image != null)
+      return Container(
+        color: Colors.grey.withOpacity(0.5),
+        alignment: Alignment.center,
+        child: Image.network(_item.meta.image, fit: BoxFit.fitWidth),
+      );
+    return Container();
   }
 
   Widget _buildHeader(TextTheme textTheme, RssItem item) {
