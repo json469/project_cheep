@@ -89,7 +89,7 @@ class _FeedPageState extends State<FeedPage> {
                 Text(item.dc.creator, style: textTheme.subtitle),
                 Text(' • ' + FeedHelpers.getFeedPageDate(item.pubDate)),
               ]),
-              _buildExpiredTag(item),
+              _buildExpiryTag(item),
             ],
           )
         ],
@@ -97,7 +97,7 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  Widget _buildExpiredTag(RssItem item) {
+  Widget _buildExpiryTag(RssItem item) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
     if (item.meta.expiry == null) return Container();
 
@@ -115,16 +115,20 @@ class _FeedPageState extends State<FeedPage> {
             style: _textTheme.subhead.copyWith(color: Colors.white),
           ));
 
+    final _expiryString = FeedHelpers.getExpiryDaysLeft(item.meta.expiry);
     return Container(
         margin: const EdgeInsets.only(top: 4.0),
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: _expiryString == 'EXPIRES TODAY' ||
+                  _expiryString == 'EXPIRES TOMORROW'
+              ? Colors.orange
+              : Colors.green,
           borderRadius: BorderRadius.circular(4.0),
         ),
         alignment: Alignment.center,
         child: Text(
-          FeedHelpers.getExpiryDaysLeft(item.meta.expiry),
+          _expiryString,
           style: _textTheme.subhead.copyWith(color: Colors.white),
         ));
   }

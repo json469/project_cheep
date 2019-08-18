@@ -26,10 +26,10 @@ class FeedHelpers {
     int _daysDifference = _expDate.difference(DateTime.now()).inDays;
 
     if (_daysDifference > 1)
-      return 'Expires in ${_daysDifference.toString()} days';
+      return 'EXPIRES IN ${_daysDifference.toString()} DAYS';
     if (_daysDifference > 0)
-      return 'Expires Tomorrow';
-    return 'Expires Today';
+      return 'EXPIRES TOMORROW';
+    return 'EXPIRES TODAY';
   }
 
   static String getFeedPageDate(String rawDate) {
