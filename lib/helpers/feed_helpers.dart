@@ -23,7 +23,7 @@ class FeedHelpers {
 
   static String getFeedPageDate(String rawDate) {
     DateTime _date = _parseDate(rawDate);
-    return DateFormat('h:mm a, dd MMMM y').format(_date).toString();
+    return DateFormat('dd MMMM y').format(_date).toString();
   }
 
   static String getFeedItemDate(String rawDate) {

@@ -81,17 +81,38 @@ class _FeedPageState extends State<FeedPage> {
           Text(item.title,
               style: textTheme.title
                   .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
-          Row(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('By '),
-              Text(item.dc.creator, style: textTheme.subtitle),
-              SizedBox(width: 8),
-              Text('•  ' + FeedHelpers.getFeedPageDate(item.pubDate))
+              Row(children: <Widget>[
+                Text('Uploaded by '),
+                Text(item.dc.creator, style: textTheme.subtitle),
+                Text(' on ' + FeedHelpers.getFeedPageDate(item.pubDate)),
+              ]),
+              _buildExpiredTag(item),
             ],
           )
         ],
       ),
     );
+  }
+
+  Widget _buildExpiredTag(RssItem item) {
+    if (FeedHelpers.isExpired(item.meta.expiry))
+      return Container(
+          margin: const EdgeInsets.only(top: 4.0),
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            'EXPIRED',
+            style: TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    return Container();
   }
 
   Widget _buildGoToLinkButton(TextTheme textTheme, String url) {
