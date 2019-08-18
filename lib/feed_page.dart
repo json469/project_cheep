@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
+import 'package:project_cheep/web_view_container.dart';
 import 'package:webfeed/webfeed.dart';
 
 class FeedPage extends StatefulWidget {
@@ -24,14 +25,11 @@ class _FeedPageState extends State<FeedPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-                child: Text(
-              _item.title,
-              style: _textTheme.title,
-            )),
+            _buildHeader(_textTheme, _item),
             Container(
                 constraints: BoxConstraints.tightFor(height: 200.0),
                 child: Image.network(_item.meta.image, fit: BoxFit.fitWidth)),
@@ -40,9 +38,42 @@ class _FeedPageState extends State<FeedPage> {
               textAlign: TextAlign.left,
               style: _textTheme.body1,
             ),
-            Text(_item.meta.link),
+            _buildGoToLinkButton(_textTheme, _item.meta.link)
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(TextTheme textTheme, RssItem item) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(item.title, style: textTheme.title),
+        Text(item.dc.creator, style: textTheme.subtitle),
+        Text(FeedHelpers.getFeedPageDate(item.pubDate))
+      ],
+    );
+  }
+
+  Widget _buildGoToLinkButton(
+    TextTheme textTheme,
+    String url,
+  ) {
+    return Container(
+      height: 60.0,
+      width: double.infinity,
+      child: RaisedButton(
+        color: Colors.blue,
+        child: Center(
+          child: Text(
+            'GO TO LINK',
+            style: textTheme.button.copyWith(color: Colors.white),
+          ),
+        ),
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => WebViewContainer(url))),
       ),
     );
   }

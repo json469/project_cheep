@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_cheep/feed_page.dart';
+import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:webfeed/webfeed.dart';
 
 class FeedItem extends StatelessWidget {
@@ -30,7 +31,7 @@ class FeedItem extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
-        Text(item.pubDate,
+        Text(FeedHelpers.getFeedItemDate(item.pubDate),
             style: _textTheme.body1.copyWith(color: Colors.grey)),
       ],
     );
