@@ -83,9 +83,10 @@ class _FeedPageState extends State<FeedPage> {
                   .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
           Row(
             children: <Widget>[
-              Text("by " + item.dc.creator, style: textTheme.subtitle),
+              Text('By '),
+              Text(item.dc.creator, style: textTheme.subtitle),
               SizedBox(width: 8),
-              Text("•  " + FeedHelpers.getFeedPageDate(item.pubDate))
+              Text('•  ' + FeedHelpers.getFeedPageDate(item.pubDate))
             ],
           )
         ],
