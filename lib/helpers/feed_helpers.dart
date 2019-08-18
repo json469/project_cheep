@@ -21,8 +21,9 @@ class FeedHelpers {
 
   static String getFeedItemDate(String rawDate) {
     DateTime _date = _parseDate(rawDate);
-    if (_date.difference(DateTime.now()).inDays < 0)
-      return DateFormat('dd MMMM y').format(_date).toString();
+    int _dayDifference = _date.difference(DateTime.now()).inDays;
+    if (_dayDifference == -1) return 'Yesterday';
+    if (_dayDifference < -1) return _dayDifference.abs().toString() + ' Days ago';
     return DateFormat('jm').format(_date).toString();
   }
 
