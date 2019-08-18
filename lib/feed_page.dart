@@ -16,6 +16,7 @@ class _FeedPageState extends State<FeedPage> {
   Widget build(BuildContext context) {
     final RssItem _item = this.widget.item;
     final TextTheme _textTheme = Theme.of(context).textTheme;
+    final Size _screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,19 +25,23 @@ class _FeedPageState extends State<FeedPage> {
           overflow: TextOverflow.ellipsis,
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        height: _screenSize.height,
+        child: Stack(
           children: <Widget>[
-            _buildHeader(_textTheme, _item),
             Container(
-                constraints: BoxConstraints.tightFor(height: 200.0),
-                child: Image.network(_item.meta.image, fit: BoxFit.fitWidth)),
-            Text(
-              FeedHelpers.getDescription(parse(_item.description).outerHtml),
-              textAlign: TextAlign.left,
-              style: _textTheme.body1,
+              margin: EdgeInsets.only(bottom: 60.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildHeader(_textTheme, _item),
+                    _buildImage(_item),
+                    _buildBody(_item, _textTheme),
+                  ],
+                ),
+              ),
             ),
             _buildGoToLinkButton(_textTheme, _item.meta.link)
           ],
@@ -45,25 +50,54 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  Widget _buildHeader(TextTheme textTheme, RssItem item) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(item.title, style: textTheme.title),
-        Text(item.dc.creator, style: textTheme.subtitle),
-        Text(FeedHelpers.getFeedPageDate(item.pubDate))
-      ],
+  Widget _buildBody(RssItem _item, TextTheme _textTheme) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        FeedHelpers.getDescription(parse(_item.description).outerHtml),
+        textAlign: TextAlign.left,
+        style: _textTheme.body1,
+      ),
     );
   }
 
-  Widget _buildGoToLinkButton(
-    TextTheme textTheme,
-    String url,
-  ) {
+  Widget _buildImage(RssItem _item) {
     return Container(
+      color: Colors.grey.withOpacity(0.5),
+      alignment: Alignment.center,
+      child: Image.network(_item.meta.image, fit: BoxFit.fitWidth),
+    );
+  }
+
+  Widget _buildHeader(TextTheme textTheme, RssItem item) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(item.title,
+              style: textTheme.title
+                  .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
+          Row(
+            children: <Widget>[
+              Text("by " + item.dc.creator, style: textTheme.subtitle),
+              SizedBox(width: 8),
+              Text("•  " + FeedHelpers.getFeedPageDate(item.pubDate))
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGoToLinkButton(TextTheme textTheme, String url) {
+    final Size _screenSize = MediaQuery.of(context).size;
+
+    return Positioned(
+      bottom: 0,
       height: 60.0,
-      width: double.infinity,
+      width: _screenSize.width,
       child: RaisedButton(
         color: Colors.blue,
         child: Center(
