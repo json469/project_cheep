@@ -12,6 +12,7 @@ class FeedItem extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.all(8.0),
       title: _buildTitle(context),
+      subtitle: _buildSubTitle(context),
       leading: _buildThumbnail(context, item.meta.image),
       onTap: () => Navigator.push(
           context, MaterialPageRoute(builder: (context) => FeedPage(item))),
@@ -31,27 +32,58 @@ class FeedItem extends StatelessWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
-        Text(FeedHelpers.getFeedItemDate(item.pubDate),
-            style: _textTheme.body1.copyWith(color: Colors.grey)),
       ],
     );
   }
 
-  ClipRRect _buildThumbnail(BuildContext context, String imageUrl) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4.0),
-      child: Container(
-        constraints: BoxConstraints.tightFor(width: 92.0, height: 64.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(0.75),
+  Widget _buildSubTitle(BuildContext context) {
+    final TextTheme _textTheme = Theme.of(context).textTheme;
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(FeedHelpers.getFeedItemDate(item.pubDate),
+              style: _textTheme.body1.copyWith(color: Colors.grey)),
+          _buildExpiredTag(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExpiredTag() {
+    if (FeedHelpers.isExpired(item.meta.expiry))
+      return Container(
+          margin: const EdgeInsets.only(top: 4.0),
+          padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            'EXPIRED',
+            style: TextStyle(fontSize: 12.0, color: Colors.white),
+          ));
+    return Container();
+  }
+
+  Widget _buildThumbnail(BuildContext context, String imageUrl) {
+    return Container(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(4.0),
+        child: Container(
+          constraints: BoxConstraints.tightFor(width: 80.0, height: 80.0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.75),
+          ),
+          child: imageUrl != null
+              ? Image.network(imageUrl, fit: BoxFit.fitWidth)
+              : Container(
+                  child: Icon(
+                  Icons.money_off,
+                  color: Colors.white,
+                )),
         ),
-        child: imageUrl != null
-            ? Image.network(imageUrl, fit: BoxFit.fitWidth)
-            : Container(
-                child: Icon(
-                Icons.money_off,
-                color: Colors.white,
-              )),
       ),
     );
   }

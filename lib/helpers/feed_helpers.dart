@@ -14,6 +14,13 @@ class FeedHelpers {
     return 'Cheep Deal';
   }
 
+  static bool isExpired(String rawExpDate) {
+    if (rawExpDate == null) return false;
+    DateTime expDate = _parseExpiryDate(rawExpDate);
+    if (expDate.difference(DateTime.now()).inDays < 0) return true;
+    return false;
+  }
+
   static String getFeedPageDate(String rawDate) {
     DateTime _date = _parseDate(rawDate);
     return DateFormat('h:mm a, dd MMMM y').format(_date).toString();
@@ -23,8 +30,15 @@ class FeedHelpers {
     DateTime _date = _parseDate(rawDate);
     int _dayDifference = _date.difference(DateTime.now()).inDays;
     if (_dayDifference == -1) return 'Yesterday';
-    if (_dayDifference < -1) return _dayDifference.abs().toString() + ' Days ago';
+    if (_dayDifference < -1)
+      return _dayDifference.abs().toString() + ' Days ago';
     return DateFormat('jm').format(_date).toString();
+  }
+
+  static DateTime _parseExpiryDate(String rawExpDate) {
+    // Given date fromat is "2019-08-19T00:00:00+12:00"
+    final String rawExpDateSubstring = rawExpDate.substring(0, 10);
+    return DateTime.parse(rawExpDateSubstring);
   }
 
   static DateTime _parseDate(String rawDate) {
