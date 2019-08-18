@@ -21,6 +21,17 @@ class FeedHelpers {
     return false;
   }
 
+  static String getExpiryDaysLeft(String rawExpDate) {
+    DateTime _expDate = _parseExpiryDate(rawExpDate);
+    int _daysDifference = _expDate.difference(DateTime.now()).inDays;
+
+    if (_daysDifference > 1)
+      return 'Expires in ${_daysDifference.toString()} days';
+    if (_daysDifference > 0)
+      return 'Expires Tomorrow';
+    return 'Expires Today';
+  }
+
   static String getFeedPageDate(String rawDate) {
     DateTime _date = _parseDate(rawDate);
     return DateFormat('dd MMMM y').format(_date).toString();
@@ -31,7 +42,7 @@ class FeedHelpers {
     int _dayDifference = _date.difference(DateTime.now()).inDays;
     if (_dayDifference == -1) return 'Yesterday';
     if (_dayDifference < -1)
-      return _dayDifference.abs().toString() + ' Days ago';
+      return '${_dayDifference.abs().toString()} Days ago';
     return DateFormat('jm').format(_date).toString();
   }
 
