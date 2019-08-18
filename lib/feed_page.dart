@@ -50,27 +50,6 @@ class _FeedPageState extends State<FeedPage> {
     );
   }
 
-  Widget _buildBody(RssItem _item, TextTheme _textTheme) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        FeedHelpers.getDescription(parse(_item.description).outerHtml),
-        textAlign: TextAlign.left,
-        style: _textTheme.body1,
-      ),
-    );
-  }
-
-  Widget _buildImage(RssItem _item) {
-    if (_item.meta.image != null)
-      return Container(
-        color: Colors.grey.withOpacity(0.5),
-        alignment: Alignment.center,
-        child: Image.network(_item.meta.image, fit: BoxFit.fitWidth),
-      );
-    return Container();
-  }
-
   Widget _buildHeader(TextTheme textTheme, RssItem item) {
     return Container(
       padding: const EdgeInsets.all(8.0),
@@ -89,10 +68,54 @@ class _FeedPageState extends State<FeedPage> {
                 Text(item.dc.creator, style: textTheme.subtitle),
                 Text(' • ' + FeedHelpers.getFeedPageDate(item.pubDate)),
               ]),
+              _buildTags(item),
               _buildExpiryTag(item),
             ],
-          )
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildImage(RssItem _item) {
+    if (_item.meta.image != null)
+      return Container(
+        color: Colors.grey.withOpacity(0.5),
+        alignment: Alignment.center,
+        child: Image.network(_item.meta.image, fit: BoxFit.fitWidth),
+      );
+    return Container();
+  }
+
+  Widget _buildBody(RssItem _item, TextTheme _textTheme) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        FeedHelpers.getDescription(parse(_item.description).outerHtml),
+        textAlign: TextAlign.left,
+        style: _textTheme.body1,
+      ),
+    );
+  }
+
+  Widget _buildTags(RssItem item) {
+    final TextTheme _textTheme = Theme.of(context).textTheme;
+    return Container(
+      margin: EdgeInsets.only(top: 8.0),
+      child: Wrap(
+        children: item.categories
+            .map((category) => Container(
+                  margin: EdgeInsets.only(bottom: 4.0, right: 4.0),
+                  padding: EdgeInsets.all(4.0),
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: Text(category.value.replaceAll('&amp;', '') + ' ',
+                      style: _textTheme.body1
+                          .copyWith(fontSize: 10, color: Colors.white)),
+                ))
+            .toList(),
       ),
     );
   }
