@@ -9,7 +9,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
+  Future<Response> _feed;
   _HomeState() {
     fetchFeed();
   }
@@ -22,9 +23,16 @@ class _HomeState extends State<Home> {
     );
   }
 
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<void> fetchFeed() async {
+    _feed = get('https://www.cheapies.nz/deals/feed');
+  }
+
   FutureBuilder<Response> _buildFutureBuilder() {
     return FutureBuilder<Response>(
-      future: fetchFeed(),
+      future: _feed,
       builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -34,7 +42,10 @@ class _HomeState extends State<Home> {
           case (ConnectionState.waiting):
             return _buildLoadingScreen();
           default:
-            return _buildFeedListView(RssFeed.parse(snapshot.data.body));
+            return RefreshIndicator(
+              child: _buildFeedListView(RssFeed.parse(snapshot.data.body)),
+              onRefresh: fetchFeed,
+            );
         }
       },
     );
@@ -58,9 +69,5 @@ class _HomeState extends State<Home> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[Center(child: CircularProgressIndicator())],
     );
-  }
-
-  Future<Response> fetchFeed() {
-    return get('https://www.cheapies.nz/deals/feed');
   }
 }
