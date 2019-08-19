@@ -64,10 +64,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   }
 
   Widget _buildLoadingScreen() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[Center(child: CircularProgressIndicator())],
+    return Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }
