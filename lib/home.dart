@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   Future<Response> _feed;
   _HomeState() {
-    fetchFeed();
+    _feed = _fetchFeed();
   }
 
   @override
@@ -26,8 +26,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
-  Future<void> fetchFeed() async {
-    _feed = get('https://www.cheapies.nz/deals/feed');
+  Future<Response> _fetchFeed() async {
+    return get('https://www.cheapies.nz/deals/feed');
   }
 
   FutureBuilder<Response> _buildFutureBuilder() {
@@ -44,11 +44,18 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           default:
             return RefreshIndicator(
               child: _buildFeedListView(RssFeed.parse(snapshot.data.body)),
-              onRefresh: fetchFeed,
+              onRefresh: _onRefresh,
             );
         }
       },
     );
+  }
+
+  Future<void> _onRefresh() {
+    setState(() {
+      _feed = _fetchFeed();
+    });
+    return null;
   }
 
   ListView _buildFeedListView(RssFeed feed) {
