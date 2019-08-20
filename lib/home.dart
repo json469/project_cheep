@@ -55,7 +55,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     setState(() {
       _feed = _fetchFeed();
     });
-    return null;
+    // To prevent "The RefreshIndicator onRefresh callback must return a Future."
+    return Future.delayed(const Duration(milliseconds: 0));
   }
 
   ListView _buildFeedListView(RssFeed feed) {
