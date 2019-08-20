@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:html/parser.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
@@ -24,6 +25,12 @@ class _FeedPageState extends State<FeedPage> {
           FeedHelpers.getTitle(_item.title),
           overflow: TextOverflow.ellipsis,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.share),
+            onPressed: () => Share.share('Check out this deal ${_item.link}'),
+          )
+        ],
       ),
       body: Container(
         height: _screenSize.height,
