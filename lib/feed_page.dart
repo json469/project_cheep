@@ -38,12 +38,12 @@ class _FeedPageState extends State<FeedPage> {
                   children: <Widget>[
                     _buildHeader(_textTheme, _item),
                     _buildImage(_item),
-                    _buildBody(_item, _textTheme),
+                    _buildBody(_textTheme, _item),
                   ],
                 ),
               ),
             ),
-            _buildGoToLinkButton(_textTheme, _item.meta.link)
+            _buildGoToLinkButton(_textTheme, _item)
           ],
         ),
       ),
@@ -87,7 +87,7 @@ class _FeedPageState extends State<FeedPage> {
     return Container();
   }
 
-  Widget _buildBody(RssItem _item, TextTheme _textTheme) {
+  Widget _buildBody(TextTheme _textTheme, RssItem _item) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Text(
@@ -156,7 +156,7 @@ class _FeedPageState extends State<FeedPage> {
         ));
   }
 
-  Widget _buildGoToLinkButton(TextTheme textTheme, String url) {
+  Widget _buildGoToLinkButton(TextTheme textTheme, RssItem item) {
     final Size _screenSize = MediaQuery.of(context).size;
 
     return Positioned(
@@ -171,8 +171,14 @@ class _FeedPageState extends State<FeedPage> {
             style: textTheme.button.copyWith(color: Colors.white),
           ),
         ),
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => WebViewContainer(url))),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => WebViewContainer(
+                    title: FeedHelpers.getTitle(item.title),
+                    url: item.meta.url,
+                  )),
+        ),
       ),
     );
   }
