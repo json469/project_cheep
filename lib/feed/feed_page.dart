@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:html/parser.dart';
 import 'package:share/share.dart';
 import 'package:webfeed/webfeed.dart';
-import 'package:html/parser.dart';
+
 import 'package:project_cheep/helpers/feed_helpers.dart';
-import 'package:project_cheep/helpers/web_view_container.dart';
+import 'package:project_cheep/helpers/network_helpers.dart';
 
 class FeedPage extends StatefulWidget {
   FeedPage(this.item, {Key key}) : super(key: key);
@@ -176,18 +177,11 @@ class _FeedPageState extends State<FeedPage> {
         color: Colors.blue,
         child: Center(
           child: Text(
-            'GO TO LINK',
+            'OPEN DEAL',
             style: textTheme.button.copyWith(color: Colors.white),
           ),
         ),
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WebViewContainer(
-                    title: FeedHelpers.getTitle(item.title),
-                    url: item.meta.url,
-                  )),
-        ),
+        onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
       ),
     );
   }
