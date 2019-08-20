@@ -27,8 +27,7 @@ class FeedItem extends StatelessWidget {
       children: <Widget>[
         Text(
           item.title,
-          style: _textTheme.subhead
-              .copyWith(color: Colors.black, fontWeight: FontWeight.w500),
+          style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w500),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
