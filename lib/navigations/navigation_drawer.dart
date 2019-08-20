@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:project_cheep/helpers/network_helpers.dart';
 
 import 'package:project_cheep/constants/navigation_drawer_constants.dart';
 import 'package:project_cheep/navigations/about_page.dart';
@@ -7,7 +7,6 @@ import 'package:project_cheep/navigations/about_page.dart';
 class NavigationDrawer extends StatelessWidget {
   final List<DrawerItem> _drawerItems = [
     DrawerItem('About', Icons.info, AboutPage()),
-    // DrawerItem('Feedback', Icons.feedback, FeedbackPage()),
   ];
 
   @override
@@ -48,7 +47,8 @@ class NavigationDrawer extends StatelessWidget {
         Icons.code,
         color: Colors.black87,
       ),
-      onTap: () => _launchURL('https://github.com/json469/sound_doctrine'),
+      onTap: () =>
+          NetworkHelpers.launchUrl('https://github.com/json469/project_cheep'),
     ));
 
     return ListView(
@@ -103,14 +103,6 @@ class NavigationDrawer extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
 
