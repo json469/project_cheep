@@ -25,12 +25,7 @@ class _FeedPageState extends State<FeedPage> {
           FeedHelpers.getTitle(_item.title),
           overflow: TextOverflow.ellipsis,
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () => Share.share('Check out this deal ${_item.link}'),
-          )
-        ],
+        actions: <Widget>[_buildShareIcon(_item)],
       ),
       body: Container(
         height: _screenSize.height,
@@ -54,6 +49,13 @@ class _FeedPageState extends State<FeedPage> {
           ],
         ),
       ),
+    );
+  }
+
+  IconButton _buildShareIcon(RssItem _item) {
+    return IconButton(
+      icon: Icon(Icons.share),
+      onPressed: () => Share.share('Check out this deal ${_item.link}'),
     );
   }
 

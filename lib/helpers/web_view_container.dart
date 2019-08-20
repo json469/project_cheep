@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_cheep/helpers/network_helpers.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -26,7 +27,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: () => _launchURL(widget.url),
+            onPressed: () => NetworkHelpers.launchUrl(widget.url),
           ),
         ],
       ),
@@ -65,13 +66,5 @@ class _WebViewContainerState extends State<WebViewContainer> {
         ),
       ),
     );
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }
