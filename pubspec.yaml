@@ -31,7 +31,6 @@ dependencies:
     git:
       url: https://github.com/json469/webfeed.git
       ref: develop
-  webview_flutter: ^0.3.12+1
 
 dev_dependencies:
   flutter_test:

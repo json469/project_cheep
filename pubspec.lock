@@ -207,13 +207,6 @@ packages:
       url: "https://github.com/json469/webfeed.git"
     source: git
     version: "0.4.2"
-  webview_flutter:
-    dependency: "direct main"
-    description:
-      name: webview_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.13"
   xml:
     dependency: transitive
     description:
