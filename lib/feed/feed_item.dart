@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_cheep/feed_page.dart';
+import 'package:project_cheep/feed/feed_page.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:webfeed/webfeed.dart';
 

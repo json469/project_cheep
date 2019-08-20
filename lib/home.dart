@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:webfeed/webfeed.dart';
 
-import 'package:project_cheep/feed_item.dart';
+import 'package:project_cheep/feed/feed_item.dart';
 
 class Home extends StatefulWidget {
   @override
