@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:webfeed/webfeed.dart';
 
+import 'package:project_cheep/navigations/navigation_drawer.dart';
 import 'package:project_cheep/feed/feed_item.dart';
 
 class Home extends StatefulWidget {
@@ -20,6 +21,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
     return Scaffold(
       appBar: AppBar(title: Text('Cheep')),
       body: _buildFutureBuilder(),
+      drawer: NavigationDrawer(),
     );
   }
 

@@ -8,4 +8,13 @@ class NetworkHelpers {
       throw 'Could not launch $url';
     }
   }
+
+  // TODO(json469): Doesn't seem to work on iOS?
+  static sendEmail(String address) async {
+    if (await canLaunch('mailto:$address')) {
+      await launch('mailto:$address');
+    } else {
+      throw 'Could not launch mailto:$address';
+    }
+  }
 }
