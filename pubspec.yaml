@@ -25,6 +25,7 @@ dependencies:
   http: ^0.12.0+2
   html: ^0.14.0+2
   intl: ^0.15.8
+  url_launcher: ^5.1.2
   webfeed:
     git:
       url: https://github.com/json469/webfeed.git

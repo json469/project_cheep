@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewContainer extends StatefulWidget {
@@ -22,6 +23,12 @@ class _WebViewContainerState extends State<WebViewContainer> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => _launchURL(widget.url),
+          ),
+        ],
       ),
       body: IndexedStack(
         index: _showLoadingPage ? 1 : 0,
@@ -58,5 +65,13 @@ class _WebViewContainerState extends State<WebViewContainer> {
         ),
       ),
     );
+  }
+
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
