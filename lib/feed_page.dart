@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:webfeed/webfeed.dart';
 import 'package:html/parser.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
-import 'package:project_cheep/web_view_container.dart';
-import 'package:webfeed/webfeed.dart';
+import 'package:project_cheep/helpers/web_view_container.dart';
 
 class FeedPage extends StatefulWidget {
   FeedPage(this.item, {Key key}) : super(key: key);
