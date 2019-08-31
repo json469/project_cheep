@@ -92,7 +92,7 @@ class NavigationDrawer extends StatelessWidget {
   Widget _renderDrawerSubHeader(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(color: Colors.blueGrey[700]),
+      decoration: BoxDecoration(color: Theme.of(context).primaryColorDark),
       child: Column(
         children: <Widget>[
           Text(

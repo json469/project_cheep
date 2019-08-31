@@ -176,7 +176,7 @@ class _FeedPageState extends State<FeedPage> {
       height: 60.0,
       width: _screenSize.width,
       child: RaisedButton(
-        color: Theme.of(context).buttonColor,
+        color: Theme.of(context).primaryColor,
         child: Center(
           child: Text(
             kOpenDealButton,

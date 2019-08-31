@@ -9,9 +9,7 @@ class ThemeChanger with ChangeNotifier {
     _loadFromSharedPreferences();
   }
 
-  getTheme() => _isLight
-      ? ThemeData.light().copyWith(buttonColor: Colors.blue)
-      : ThemeData.dark().copyWith(buttonColor: Colors.black);
+  getTheme() => _isLight ? ThemeData.light() : ThemeData.dark();
 
   toggleTheme() {
     _saveToSharedPreferences(!_isLight);
