@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:project_cheep/blocs/theme.dart';
+import 'package:project_cheep/blocs/theme_changer.dart';
 import 'package:project_cheep/helpers/network_helpers.dart';
 import 'package:project_cheep/constants/navigation_drawer_constants.dart';
 import 'package:project_cheep/navigations/about_page.dart';
