@@ -76,13 +76,12 @@ class AboutPage extends StatelessWidget {
   Widget _buildHeader(BuildContext context, String title) {
     return Container(
       height: 50.0,
-      color: Colors.blueGrey[700],
+      color: Theme.of(context).primaryColor,
       padding: const EdgeInsets.symmetric(horizontal: 8),
       alignment: Alignment.centerLeft,
       child: Text(
         title,
-        style: TextStyle(
-            fontSize: 18.0, color: Colors.white, fontWeight: FontWeight.w500),
+        style: TextStyle(fontSize: 16.0, color: Colors.white),
       ),
     );
   }
