@@ -11,7 +11,7 @@ class ThemeChanger with ChangeNotifier {
 
   getTheme() => _isLight
       ? ThemeData.light().copyWith(buttonColor: Colors.blue)
-      : ThemeData.dark().copyWith(buttonColor: Colors.blueGrey);
+      : ThemeData.dark().copyWith(buttonColor: Colors.black);
 
   toggleTheme() {
     _saveToSharedPreferences(!_isLight);

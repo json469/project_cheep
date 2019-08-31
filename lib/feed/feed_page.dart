@@ -6,6 +6,8 @@ import 'package:webfeed/webfeed.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:project_cheep/helpers/network_helpers.dart';
 
+import 'package:project_cheep/constants/feed_constants.dart';
+
 class FeedPage extends StatefulWidget {
   FeedPage(this.item, {Key key}) : super(key: key);
   final RssItem item;
@@ -56,7 +58,7 @@ class _FeedPageState extends State<FeedPage> {
   IconButton _buildShareIcon(RssItem _item) {
     return IconButton(
       icon: Icon(Icons.share),
-      onPressed: () => Share.share('Check out this deal ${_item.link}'),
+      onPressed: () => Share.share(kShareDeal + _item.link),
     );
   }
 
@@ -144,7 +146,7 @@ class _FeedPageState extends State<FeedPage> {
           ),
           alignment: Alignment.center,
           child: Text(
-            'EXPIRED',
+            kExpired,
             style: _textTheme.subhead.copyWith(color: Colors.white),
           ));
 
@@ -153,8 +155,8 @@ class _FeedPageState extends State<FeedPage> {
         margin: const EdgeInsets.only(top: 4.0),
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: _expiryString == 'EXPIRES TODAY' ||
-                  _expiryString == 'EXPIRES TOMORROW'
+          color: _expiryString == kExpiresToday ||
+                  _expiryString == kExpiresTomorrow
               ? Colors.orange
               : Colors.green,
           borderRadius: BorderRadius.circular(4.0),
@@ -177,7 +179,7 @@ class _FeedPageState extends State<FeedPage> {
         color: Theme.of(context).buttonColor,
         child: Center(
           child: Text(
-            'OPEN DEAL',
+            kOpenDealButton,
             style: textTheme.button.copyWith(color: Colors.white),
           ),
         ),
