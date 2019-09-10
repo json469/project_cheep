@@ -3,9 +3,8 @@ import 'package:html/parser.dart';
 import 'package:share/share.dart';
 import 'package:webfeed/webfeed.dart';
 
+import 'package:project_cheep/feed/feed_footer_button.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
-import 'package:project_cheep/helpers/network_helpers.dart';
-
 import 'package:project_cheep/constants/feed_constants.dart';
 
 class FeedPage extends StatefulWidget {
@@ -48,7 +47,7 @@ class _FeedPageState extends State<FeedPage> {
                 ),
               ),
             ),
-            _buildGoToLinkButton(_textTheme, _item)
+            FeedFooterButton(_item)
           ],
         ),
       ),
@@ -168,23 +167,7 @@ class _FeedPageState extends State<FeedPage> {
         ));
   }
 
-  Widget _buildGoToLinkButton(TextTheme textTheme, RssItem item) {
-    final Size _screenSize = MediaQuery.of(context).size;
-
-    return Positioned(
-      bottom: 0,
-      height: 60.0,
-      width: _screenSize.width,
-      child: RaisedButton(
-        color: Theme.of(context).primaryColor,
-        child: Center(
-          child: Text(
-            kOpenDealButton,
-            style: textTheme.button.copyWith(color: Colors.white),
-          ),
-        ),
-        onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
-      ),
-    );
+  Widget _buildLoadingScreen() {
+    return Center(child: CircularProgressIndicator());
   }
 }
