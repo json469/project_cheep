@@ -34,7 +34,7 @@ class _FeedPageState extends State<FeedPage> {
         child: Stack(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 60.0),
+              margin: EdgeInsets.only(bottom: 100.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

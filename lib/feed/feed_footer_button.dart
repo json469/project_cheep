@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
@@ -6,7 +7,7 @@ import 'package:project_cheep/helpers/network_helpers.dart';
 import 'package:project_cheep/constants/feed_constants.dart';
 
 class FeedFooterButton extends StatelessWidget {
-  const FeedFooterButton(this.item);
+  const FeedFooterButton(this.item, {Key key}) : super(key: key);
   final RssItem item;
 
   @override
@@ -16,7 +17,7 @@ class FeedFooterButton extends StatelessWidget {
 
     return Positioned(
       bottom: 0,
-      // height: 60.0,
+      height: 100.0,
       width: MediaQuery.of(context).size.width,
       child: FutureBuilder<Response>(
           future: get(
@@ -52,13 +53,14 @@ class FeedFooterButton extends StatelessWidget {
   Widget _buildOpenDealButton(BuildContext context) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
     return Container(
-      height: 60.0,
+      height: 50.0,
       child: RaisedButton(
         color: Theme.of(context).primaryColorDark,
         child: Center(
           child: Text(
             kOpenDealButton,
-            style: _textTheme.button.copyWith(color: Colors.white),
+            style:
+                _textTheme.button.copyWith(fontSize: 24, color: Colors.white),
           ),
         ),
         onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
@@ -72,7 +74,7 @@ class FeedFooterButton extends StatelessWidget {
       children: <Widget>[
         _buildCouponCode(context, codes),
         Container(
-          height: 60.0,
+          height: 50.0,
           child: RaisedButton(
             color: Theme.of(context).primaryColorDark,
             child: Center(
@@ -107,7 +109,7 @@ class FeedFooterButton extends StatelessWidget {
     }
 
     return Container(
-      height: 60.0,
+      height: 50.0,
       color: _themeData.primaryColor,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -115,7 +117,7 @@ class FeedFooterButton extends StatelessWidget {
         itemCount: listOfCodes.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: EdgeInsets.fromLTRB(8.0, 12.0, index != 0 ? 0 : 8.0, 12.0),
+            padding: EdgeInsets.fromLTRB(8.0, 8.0, index != 0 ? 0 : 8.0, 8.0),
             child: FlatButton(
               splashColor: Colors.white38,
               color: Colors.transparent,
@@ -131,7 +133,13 @@ class FeedFooterButton extends StatelessWidget {
                       color: _themeData.scaffoldBackgroundColor),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: listOfCodes[index]));
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text("Copied to Clipboard"),
+                  duration: Duration(milliseconds: 300),
+                ));
+              },
             ),
           );
         },
