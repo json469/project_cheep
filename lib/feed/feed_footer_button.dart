@@ -125,7 +125,7 @@ class FeedFooterButton extends StatelessWidget {
                       style: _textTheme.body1.copyWith(color: Colors.white)),
                   SizedBox(width: 8.0),
                   Icon(Icons.content_copy,
-                      color: _themeData.scaffoldBackgroundColor),
+                      color: Colors.white),
                 ],
               ),
               onPressed: () {
