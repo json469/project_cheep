@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -94,16 +96,9 @@ class FeedFooterButton extends StatelessWidget {
     final ThemeData _themeData = Theme.of(context);
     final TextTheme _textTheme = Theme.of(context).textTheme;
 
-    List<String> listOfCodes = [];
+    List<dynamic> listOfCodes = [];
     if (codes.startsWith('[')) {
-      // TODO(JesseSon): Fix after changes made to multi code array format
-      // listOfCodes = json.decode(codes);
-      listOfCodes = [
-        'COUPONCODE1',
-        'COUPONCODE2',
-        'COUPONCODE3',
-        'COUPONCODE4'
-      ];
+      listOfCodes = jsonDecode(codes);
     } else {
       listOfCodes.add(codes);
     }
