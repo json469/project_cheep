@@ -166,8 +166,4 @@ class _FeedPageState extends State<FeedPage> {
           style: _textTheme.subhead.copyWith(color: Colors.white),
         ));
   }
-
-  Widget _buildLoadingScreen() {
-    return Center(child: CircularProgressIndicator());
-  }
 }
