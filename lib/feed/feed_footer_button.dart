@@ -23,7 +23,7 @@ class FeedFooterButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: FutureBuilder<Response>(
           future: get(
-              'https://us-central1-cheep-scraper.cloudfunctions.net/get_coupon_code/?node_id=$nodeID'),
+              'https://asia-northeast1-cheep-backend.cloudfunctions.net/get_coupon_code/?node_id=$nodeID'),
           builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               final codes = snapshot.data.body;
