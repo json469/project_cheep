@@ -1,3 +1,7 @@
+# add pods for desired Firebase products
+# https://firebase.google.com/docs/ios/setup#available-pods
+pod 'Firebase'
+
 # Uncomment this line to define a global platform for your project
 # platform :ios, '9.0'
 
