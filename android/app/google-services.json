@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "244091265283",
+    "firebase_url": "https://cheep-backend.firebaseio.com",
+    "project_id": "cheep-backend",
+    "storage_bucket": "cheep-backend.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244091265283:android:f1552c366202ea1a06c936",
+        "android_client_info": {
+          "package_name": "com.jessethetentdeveloper.project_cheep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244091265283-t03qfatrl4e5iqlsc3vs3d5o19tib574.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTjZGj-Il2gdOrfUkImeVRlUqroVcVeYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244091265283-t03qfatrl4e5iqlsc3vs3d5o19tib574.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "244091265283-g19rliuc1k6e9grm1r1obht2gel77vse.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jessethetentdeveloper.cheep"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
