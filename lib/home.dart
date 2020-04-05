@@ -22,9 +22,10 @@ class _HomeState extends State<Home> {
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
+              print(snapshot.data.data['cheapies']);
               return RefreshIndicator(
-                child: _buildFeedListView(
-                    RssFeed.parse(snapshot.data.data['content'])),
+                child: Container(),
+                // child: _buildFeedListView(RssFeed.parse(snapshot.data.data['cheapies'])),
                 onRefresh: () {},
               );
             } else {
