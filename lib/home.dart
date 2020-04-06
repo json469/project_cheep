@@ -22,10 +22,8 @@ class _HomeState extends State<Home> {
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
-              return RefreshIndicator(
-                child: _buildFeedListView(RssFeed.parse(snapshot.data.data['Content'])),
-                onRefresh: () {},
-              );
+              return _buildFeedListView(
+                  RssFeed.parse(snapshot.data.data['Content']));
             } else {
               return _buildLoadingScreen();
             }
