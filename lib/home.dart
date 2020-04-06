@@ -17,15 +17,13 @@ class _HomeState extends State<Home> {
       appBar: AppBar(title: Text('Cheep')),
       body: StreamBuilder(
           stream: Firestore.instance
-              .collection('rss')
-              .document('cheapies')
+              .collection('cheapies')
+              .document('RSS')
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data.data['cheapies']);
               return RefreshIndicator(
-                child: Container(),
-                // child: _buildFeedListView(RssFeed.parse(snapshot.data.data['cheapies'])),
+                child: _buildFeedListView(RssFeed.parse(snapshot.data.data['Content'])),
                 onRefresh: () {},
               );
             } else {
