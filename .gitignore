@@ -65,6 +65,8 @@
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
 **/ios/Flutter/flutter_export_environment.sh
+**/ios/Flutter/Flutter.podspec
+**/ios/Runner.xcodeproj/project.pbxproj
 
 # Security
 **/ios/GoogleService-Info.plist
