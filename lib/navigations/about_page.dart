@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:project_cheep/helpers/ink_well_wrapper.dart';
 import 'package:project_cheep/helpers/network_helpers.dart';
+import 'package:project_cheep/constants/about_page_constants.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -38,10 +39,10 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text("This app was built with Choice Cheapies NZ RSS feed."),
+              Text(kAboutDescription),
               _buildLink(
-                site: 'Choice Cheapies NZ',
-                url: 'https://cheapies.nz/',
+                site: kChoiceCheapiesNZ,
+                url: kChoiceCheapiesLink,
               ),
             ],
           ),
@@ -60,11 +61,10 @@ class AboutPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                  "This app is open source and we welcome all form of contributions."),
+              Text(kCheepDescription),
               _buildLink(
-                site: 'Cheep Github',
-                url: 'https://github.com/json469/project_cheep',
+                site: kCheepGithub,
+                url: kCheepGithubLink,
               ),
             ],
           ),
@@ -104,11 +104,11 @@ class AboutPage extends StatelessWidget {
       minWidth: double.maxFinite,
       height: 60,
       color: Theme.of(context).primaryColor,
-      child: Text('CONTACT DEVELOPER',
+      child: Text(kContactDeveloper,
           style:
               Theme.of(context).textTheme.button.copyWith(color: Colors.white)),
       onPressed: () =>
-          NetworkHelpers.sendEmail('jessethetentdeveloper@gmail.com'),
+          NetworkHelpers.sendEmail(kContactDeveloperEmail),
     );
   }
 }
