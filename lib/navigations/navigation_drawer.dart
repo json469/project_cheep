@@ -57,7 +57,7 @@ class NavigationDrawer extends StatelessWidget {
         Icons.code,
       ),
       onTap: () =>
-          NetworkHelpers.launchUrl('https://github.com/json469/project_cheep'),
+          NetworkHelpers.launchUrl(kGithubOpenSourceLink),
     ));
 
     return ListView(
