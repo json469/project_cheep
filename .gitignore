@@ -70,6 +70,7 @@
 
 # Security
 **/ios/GoogleService-Info.plist
+**/android/google-services.json
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3
