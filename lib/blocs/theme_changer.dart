@@ -9,11 +9,11 @@ class ThemeChanger with ChangeNotifier {
     _loadFromSharedPreferences();
   }
 
-  getTheme() => _isLight ? ThemeData.light() : ThemeData.dark();
+  bool isLight() => _isLight;
 
-  toggleTheme() {
-    _saveToSharedPreferences(!_isLight);
-  }
+  ThemeData getTheme() => _isLight ? ThemeData.light() : ThemeData.dark();
+
+  toggleTheme() => _saveToSharedPreferences(!_isLight);
 
   void _loadFromSharedPreferences() async {
     final SharedPreferences sharedPreferences =

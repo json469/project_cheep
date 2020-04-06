@@ -45,7 +45,10 @@ class NavigationDrawer extends StatelessWidget {
       leading: Icon(
         Icons.brightness_4,
       ),
-      onTap: () => themeProvider.toggleTheme(),
+      trailing: Switch(
+        value: !themeProvider.isLight(),
+        onChanged: (x) => themeProvider.toggleTheme(),
+      ),
     ));
 
     _drawerList.add(ListTile(
