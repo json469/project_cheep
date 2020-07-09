@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:project_cheep/constants/network_constants.dart';
+
 import 'package:project_cheep/navigations/navigation_drawer.dart';
 import 'package:project_cheep/feed/feed_item.dart';
 
@@ -17,13 +19,13 @@ class _HomeState extends State<Home> {
       appBar: AppBar(title: Text('Cheep')),
       body: StreamBuilder(
           stream: Firestore.instance
-              .collection('cheapies')
-              .document('RSS')
+              .collection(kCollectionName)
+              .document(kDocumentName)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               return _buildFeedListView(
-                  RssFeed.parse(snapshot.data.data['Content']));
+                  RssFeed.parse(snapshot.data.data[kObjectIdentifier]));
             } else {
               return _buildLoadingScreen();
             }
