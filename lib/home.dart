@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data.data[kDeals]);
               return _buildFeedListView(
                 RssFeed.parse(snapshot.data.data[kRSS]),
                 snapshot.data.data[kDeals],
