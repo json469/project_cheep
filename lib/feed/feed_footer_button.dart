@@ -21,6 +21,7 @@ class FeedFooterButton extends StatelessWidget {
 
   Widget _buildOpenDealButton(BuildContext context) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Positioned(
       bottom: 0,
       height: 50.0,
@@ -32,8 +33,7 @@ class FeedFooterButton extends StatelessWidget {
           child: Center(
             child: Text(
               kOpenDealButton,
-              style:
-                  _textTheme.button.copyWith(fontSize: 24, color: Colors.white),
+              style: _textTheme.button.copyWith(color: Colors.white),
             ),
           ),
           onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
@@ -44,6 +44,7 @@ class FeedFooterButton extends StatelessWidget {
 
   Widget _buildCouponCodeButton(BuildContext context, Coupon coupon) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
+
     return Positioned(
       bottom: 0,
       height: 100.0,
@@ -76,38 +77,50 @@ class FeedFooterButton extends StatelessWidget {
     return Container(
       height: 50.0,
       color: _themeData.primaryColor,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        itemCount: coupon.codes.length,
-        itemBuilder: (BuildContext context, int index) {
-          var body1 = _textTheme.bodyText2;
-          return Padding(
-            padding: EdgeInsets.fromLTRB(8.0, 8.0, index != 0 ? 0 : 8.0, 8.0),
-            child: FlatButton(
-              splashColor: Colors.white38,
-              color: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  side: BorderSide(color: _themeData.scaffoldBackgroundColor)),
-              child: Row(
-                children: <Widget>[
-                  Text(codes[index],
-                      style: body1.copyWith(color: Colors.white)),
-                  SizedBox(width: 8.0),
-                  Icon(Icons.content_copy, color: Colors.white),
-                ],
-              ),
-              onPressed: () {
-                Clipboard.setData(ClipboardData(text: codes[index]));
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text("Copied to Clipboard"),
-                  duration: Duration(milliseconds: 300),
-                ));
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(left: 8.0),
+            child: Text(kCode,
+                style: _textTheme.button.copyWith(color: Colors.white)),
+          ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: coupon.codes.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding:
+                      EdgeInsets.fromLTRB(8.0, 8.0, index != 0 ? 0 : 8.0, 8.0),
+                  child: FlatButton(
+                    splashColor: Colors.white38,
+                    color: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        side: BorderSide(
+                            color: _themeData.scaffoldBackgroundColor)),
+                    child: Row(
+                      children: <Widget>[
+                        Text(codes[index],
+                            style: _textTheme.bodyText2
+                                .copyWith(color: Colors.white)),
+                        SizedBox(width: 8.0),
+                        Icon(Icons.content_copy, color: Colors.white),
+                      ],
+                    ),
+                    onPressed: () {
+                      Clipboard.setData(ClipboardData(text: codes[index]));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text(kCopyToClipboard),
+                        duration: Duration(milliseconds: 300),
+                      ));
+                    },
+                  ),
+                );
               },
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
