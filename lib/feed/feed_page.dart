@@ -3,13 +3,16 @@ import 'package:html/parser.dart';
 import 'package:share/share.dart';
 import 'package:webfeed/webfeed.dart';
 
+import 'package:project_cheep/models/coupon_model.dart';
+
 import 'package:project_cheep/feed/feed_footer_button.dart';
 import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:project_cheep/constants/feed_constants.dart';
 
 class FeedPage extends StatefulWidget {
-  FeedPage(this.item, {Key key}) : super(key: key);
+  FeedPage(this.item, this.coupon, {Key key}) : super(key: key);
   final RssItem item;
+  final Coupon coupon;
 
   _FeedPageState createState() => _FeedPageState();
 }
@@ -18,6 +21,7 @@ class _FeedPageState extends State<FeedPage> {
   @override
   Widget build(BuildContext context) {
     final RssItem _item = this.widget.item;
+    final Coupon _coupon = this.widget.coupon;
     final TextTheme _textTheme = Theme.of(context).textTheme;
     final Size _screenSize = MediaQuery.of(context).size;
 
@@ -47,7 +51,7 @@ class _FeedPageState extends State<FeedPage> {
                 ),
               ),
             ),
-            FeedFooterButton(_item)
+            FeedFooterButton(_item, _coupon)
           ],
         ),
       ),

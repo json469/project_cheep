@@ -1,54 +1,26 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:webfeed/domain/rss_item.dart';
+
+import 'package:project_cheep/models/coupon_model.dart';
 
 import 'package:project_cheep/helpers/network_helpers.dart';
 import 'package:project_cheep/constants/feed_constants.dart';
 
 class FeedFooterButton extends StatelessWidget {
-  const FeedFooterButton(this.item, {Key key}) : super(key: key);
+  const FeedFooterButton(this.item, this.coupon, {Key key}) : super(key: key);
   final RssItem item;
+  final Coupon coupon;
 
   @override
   Widget build(BuildContext context) {
-    final int nodeID =
-        int.parse(item.link.substring(item.link.lastIndexOf('/') + 1));
-
     return Positioned(
       bottom: 0,
       height: 100.0,
       width: MediaQuery.of(context).size.width,
-      child: FutureBuilder<Response>(
-          future: get(
-              'https://asia-northeast1-cheep-backend.cloudfunctions.net/get_coupon_code/?node_id=$nodeID'),
-          builder: (BuildContext context, AsyncSnapshot<Response> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              final codes = snapshot.data.body;
-              if (codes == '') {
-                return _buildOpenDealButton(context);
-              } else {
-                return _buildCouponCodeButton(context, codes);
-              }
-            } else {
-              return _buildLoadingButton(context);
-            }
-          }),
-    );
-  }
-
-  Widget _buildLoadingButton(BuildContext context) {
-    return Container(
-      height: 60.0,
-      child: RaisedButton(
-        color: Theme.of(context).primaryColor,
-        child: Center(
-            child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white))),
-        onPressed: null,
-      ),
+      child: coupon.codes.length > 0
+          ? _buildCouponCodeButton(context, coupon)
+          : _buildOpenDealButton(context),
     );
   }
 
@@ -70,11 +42,11 @@ class FeedFooterButton extends StatelessWidget {
     );
   }
 
-  Widget _buildCouponCodeButton(BuildContext context, String codes) {
+  Widget _buildCouponCodeButton(BuildContext context, Coupon coupon) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
     return Column(
       children: <Widget>[
-        _buildCouponCode(context, codes),
+        _buildCouponCode(context, coupon.codes),
         Container(
           height: 50.0,
           child: RaisedButton(
@@ -92,16 +64,9 @@ class FeedFooterButton extends StatelessWidget {
     );
   }
 
-  Widget _buildCouponCode(BuildContext context, String codes) {
+  Widget _buildCouponCode(BuildContext context, List<dynamic> codes) {
     final ThemeData _themeData = Theme.of(context);
     final TextTheme _textTheme = Theme.of(context).textTheme;
-
-    List<dynamic> listOfCodes = [];
-    if (codes.startsWith('[')) {
-      listOfCodes = jsonDecode(codes);
-    } else {
-      listOfCodes.add(codes);
-    }
 
     return Container(
       height: 50.0,
@@ -109,8 +74,9 @@ class FeedFooterButton extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         reverse: true,
-        itemCount: listOfCodes.length,
+        itemCount: coupon.codes.length,
         itemBuilder: (BuildContext context, int index) {
+          var body1 = _textTheme.bodyText2;
           return Padding(
             padding: EdgeInsets.fromLTRB(8.0, 8.0, index != 0 ? 0 : 8.0, 8.0),
             child: FlatButton(
@@ -121,15 +87,14 @@ class FeedFooterButton extends StatelessWidget {
                   side: BorderSide(color: _themeData.scaffoldBackgroundColor)),
               child: Row(
                 children: <Widget>[
-                  Text(listOfCodes[index],
-                      style: _textTheme.body1.copyWith(color: Colors.white)),
+                  Text(codes[index],
+                      style: body1.copyWith(color: Colors.white)),
                   SizedBox(width: 8.0),
-                  Icon(Icons.content_copy,
-                      color: Colors.white),
+                  Icon(Icons.content_copy, color: Colors.white),
                 ],
               ),
               onPressed: () {
-                Clipboard.setData(ClipboardData(text: listOfCodes[index]));
+                Clipboard.setData(ClipboardData(text: codes[index]));
                 Scaffold.of(context).showSnackBar(SnackBar(
                   content: Text("Copied to Clipboard"),
                   duration: Duration(milliseconds: 300),

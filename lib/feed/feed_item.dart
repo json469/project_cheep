@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:project_cheep/feed/feed_page.dart';
-import 'package:project_cheep/helpers/feed_helpers.dart';
 import 'package:webfeed/webfeed.dart';
 
+import 'package:project_cheep/models/coupon_model.dart';
+
+import 'package:project_cheep/feed/feed_page.dart';
+import 'package:project_cheep/helpers/feed_helpers.dart';
+
 class FeedItem extends StatelessWidget {
-  const FeedItem(this.item, {Key key}) : super(key: key);
+  const FeedItem(this.item, this.coupon, {Key key}) : super(key: key);
   final RssItem item;
+  final Coupon coupon;
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +18,8 @@ class FeedItem extends StatelessWidget {
       title: _buildTitle(context),
       subtitle: _buildSubTitle(context),
       leading: _buildThumbnail(context, item.meta.image),
-      onTap: () => Navigator.push(
-          context, MaterialPageRoute(builder: (context) => FeedPage(item))),
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => FeedPage(item, coupon))),
     );
   }
 
