@@ -38,7 +38,9 @@ class _FeedPageState extends State<FeedPage> {
         child: Stack(
           children: <Widget>[
             Container(
-              margin: EdgeInsets.only(bottom: 100.0),
+              margin: EdgeInsets.only(
+                bottom: _coupon.codes.length > 0 ? 100.0 : 50.0,  // Leave bottom margin for coupon height to be rendered (which is dynamic)
+              ),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

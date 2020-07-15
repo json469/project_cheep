@@ -14,53 +14,58 @@ class FeedFooterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      height: 100.0,
-      width: MediaQuery.of(context).size.width,
-      child: coupon.codes.length > 0
-          ? _buildCouponCodeButton(context, coupon)
-          : _buildOpenDealButton(context),
-    );
+    return coupon.codes.length > 0
+        ? _buildCouponCodeButton(context, coupon)
+        : _buildOpenDealButton(context);
   }
 
   Widget _buildOpenDealButton(BuildContext context) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
-    return Container(
+    return Positioned(
+      bottom: 0,
       height: 50.0,
-      child: RaisedButton(
-        color: Theme.of(context).primaryColorDark,
-        child: Center(
-          child: Text(
-            kOpenDealButton,
-            style:
-                _textTheme.button.copyWith(fontSize: 24, color: Colors.white),
+      width: MediaQuery.of(context).size.width,
+      child: Container(
+        height: 50.0,
+        child: RaisedButton(
+          color: Theme.of(context).primaryColorDark,
+          child: Center(
+            child: Text(
+              kOpenDealButton,
+              style:
+                  _textTheme.button.copyWith(fontSize: 24, color: Colors.white),
+            ),
           ),
+          onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
         ),
-        onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
       ),
     );
   }
 
   Widget _buildCouponCodeButton(BuildContext context, Coupon coupon) {
     final TextTheme _textTheme = Theme.of(context).textTheme;
-    return Column(
-      children: <Widget>[
-        _buildCouponCode(context, coupon.codes),
-        Container(
-          height: 50.0,
-          child: RaisedButton(
-            color: Theme.of(context).primaryColorDark,
-            child: Center(
-              child: Text(
-                kOpenDealButton,
-                style: _textTheme.button.copyWith(color: Colors.white),
+    return Positioned(
+      bottom: 0,
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: <Widget>[
+          _buildCouponCode(context, coupon.codes),
+          Container(
+            height: 50.0,
+            child: RaisedButton(
+              color: Theme.of(context).primaryColorDark,
+              child: Center(
+                child: Text(
+                  kOpenDealButton,
+                  style: _textTheme.button.copyWith(color: Colors.white),
+                ),
               ),
+              onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
             ),
-            onPressed: () => NetworkHelpers.launchUrl(item.meta.url),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
