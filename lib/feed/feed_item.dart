@@ -31,7 +31,7 @@ class FeedItem extends StatelessWidget {
       children: <Widget>[
         Text(
           item.title,
-          style: _textTheme.subhead.copyWith(fontWeight: FontWeight.w500),
+          style: _textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
@@ -46,7 +46,7 @@ class FeedItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(FeedHelpers.getFeedItemDate(item.pubDate),
-              style: _textTheme.body1.copyWith(color: Colors.grey)),
+              style: _textTheme.bodyText2.copyWith(color: Colors.grey)),
           _buildExpiredTag(),
         ],
       ),

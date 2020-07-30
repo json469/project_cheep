@@ -56,8 +56,7 @@ class NavigationDrawer extends StatelessWidget {
       leading: Icon(
         Icons.code,
       ),
-      onTap: () =>
-          NetworkHelpers.launchUrl(kGithubOpenSourceLink),
+      onTap: () => NetworkHelpers.launchUrl(kGithubOpenSourceLink),
     ));
 
     return ListView(
@@ -81,7 +80,7 @@ class NavigationDrawer extends StatelessWidget {
           ),
           Text(
             kAppName,
-            style: _textTheme.title.copyWith(color: Colors.white),
+            style: _textTheme.headline6.copyWith(color: Colors.white),
           ),
           Text(
             kAppVersion,

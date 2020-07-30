@@ -39,7 +39,9 @@ class _FeedPageState extends State<FeedPage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(
-                bottom: _coupon.codes.length > 0 ? 100.0 : 50.0,  // Leave bottom margin for coupon height to be rendered (which is dynamic)
+                bottom: _coupon.codes.length > 0
+                    ? 100.0
+                    : 50.0, // Leave bottom margin for coupon height to be rendered (which is dynamic)
               ),
               child: SingleChildScrollView(
                 child: Column(
@@ -75,14 +77,14 @@ class _FeedPageState extends State<FeedPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(item.title,
-              style: textTheme.title
+              style: textTheme.headline6
                   .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(children: <Widget>[
-                Text(item.dc.creator, style: textTheme.subtitle),
+                Text(item.dc.creator, style: textTheme.subtitle2),
                 Text(' • ' + FeedHelpers.getFeedPageDate(item.pubDate)),
               ]),
               _buildTags(item),
@@ -110,7 +112,7 @@ class _FeedPageState extends State<FeedPage> {
       child: Text(
         FeedHelpers.getDescription(parse(_item.description).outerHtml),
         textAlign: TextAlign.left,
-        style: _textTheme.body1,
+        style: _textTheme.bodyText2,
       ),
     );
   }
@@ -129,7 +131,7 @@ class _FeedPageState extends State<FeedPage> {
                     borderRadius: BorderRadius.circular(4.0),
                   ),
                   child: Text(category.value.replaceAll('&amp;', '') + ' ',
-                      style: _textTheme.body1
+                      style: _textTheme.bodyText2
                           .copyWith(fontSize: 10, color: Colors.white)),
                 ))
             .toList(),
@@ -152,7 +154,7 @@ class _FeedPageState extends State<FeedPage> {
           alignment: Alignment.center,
           child: Text(
             kExpired,
-            style: _textTheme.subhead.copyWith(color: Colors.white),
+            style: _textTheme.subtitle1.copyWith(color: Colors.white),
           ));
 
     final _expiryString = FeedHelpers.getExpiryDaysLeft(item.meta.expiry);
@@ -169,7 +171,7 @@ class _FeedPageState extends State<FeedPage> {
         alignment: Alignment.center,
         child: Text(
           _expiryString,
-          style: _textTheme.subhead.copyWith(color: Colors.white),
+          style: _textTheme.subtitle1.copyWith(color: Colors.white),
         ));
   }
 }
