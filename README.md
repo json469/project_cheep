@@ -2,7 +2,8 @@
 <img src="https://i.imgur.com/mwnwBZ5.gif" height="400"/> <img src="https://i.imgur.com/6wTNND0.gif" height="400"/> <img src="https://imgur.com/lDtk0lN.gif" height="400"/>
 
 An iOS/Android app created in Flutter to provide latest promotions and deals for New Zealanders.
-Backend built on Choice Cheapies RSS Feed - Google Cloud Functions and Cloud Firestore
+
+Backend built on Choice Cheapies RSS Feed - Google Cloud Functions and Cloud Firestore.
 
 ## ~~Download~~
 Requires publishing ⚠️
