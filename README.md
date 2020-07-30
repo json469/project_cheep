@@ -1,16 +1,14 @@
-# project_cheep
+# Project Cheep 
+<img src="https://i.imgur.com/GGonDsu.gif" width="200"/>
 
-A new Flutter project.
+An iOS/Android app created in Flutter to provide latest promotions and deals for New Zealanders.
+Backend built on Choice Cheapies RSS Feed - Google Cloud Functions and Cloud Firestore
 
-## Getting Started
+## ~~Download~~
+Requires publishing ⚠️
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Packages
+- [Cloud Firestore](https://pub.dev/packages/cloud_firestore)
+- [Shared Preferences](https://pub.dev/packages/shared_preferences)
+- [Provider](https://pub.dev/packages/provider)
+- [Web Feed](https://pub.dev/packages/webfeed) | [(Customised)](https://github.com/json469/webfeed)
